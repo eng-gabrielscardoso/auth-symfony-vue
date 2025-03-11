@@ -3,5 +3,10 @@
     "DEVSENSE.phptools-vscode",
     "bmewburn.vscode-intelephense-client",
     "humao.rest-client",
+    "Vue.volar",
+    "vitest.explorer",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode"
   ]
 }
