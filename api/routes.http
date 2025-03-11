@@ -1,5 +1,48 @@
 # @name health
 
-GET http://localhost:8000/
-Accept: application/json
-Content-Type: application/json
+GET http://localhost:8000/api
+Accept: application/json;text/text/html
+Content-Type: application/json;text/text/html
+
+###
+
+# @name me
+
+GET http://localhost:8000/api/auth/me
+Accept: application/json;text/text/html
+Content-Type: application/json;text/html
+
+###
+
+# @name signIn
+
+POST http://localhost:8000/api/auth/sign-in
+Accept: application/json;text/text/html
+Content-Type: application/json;text/text/html
+
+{
+  "email": "gsc@example.com",
+  "password": "Secret123456@"
+}
+
+###
+
+# @name signUp
+
+POST http://localhost:8000/api/auth/sign-up
+Accept: application/json;text/text/html
+Content-Type: application/json;text/text/html
+
+{
+  "name": "Gabriel Santos Cardoso",
+  "email": "gsc@example.com",
+  "password": "Secret123456@"
+}
+
+###
+
+# @name signOut
+
+POST http://localhost:8000/api/auth/sign-out
+Accept: application/json;text/text/html
+Content-Type: application/json;text/text/html
