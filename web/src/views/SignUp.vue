@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "vue-router";
+import { signupSchema } from "@/schemas/auth";
+import { z } from "zod";
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -11,12 +13,24 @@ const email = ref("");
 const password = ref("");
 const loading = ref(false);
 const errorMessage = ref("");
+const formErrors = ref<{ [key: string]: string }>({});
 
 const handleSignUp = async () => {
   errorMessage.value = "";
+  formErrors.value = {};
   loading.value = true;
 
   try {
+    const result = signupSchema.safeParse({ name: name.value, email: email.value, password: password.value });
+
+    if (!result.success) {
+      result.error.errors.forEach((error) => {
+        formErrors.value[error.path[0]] = error.message;
+      });
+      loading.value = false;
+      return;
+    }
+
     await authStore.signUp(name.value, email.value, password.value);
     router.push("/dashboard");
   } catch (error) {
@@ -43,6 +57,7 @@ const handleSignUp = async () => {
           class="input input-bordered w-full"
           required
         />
+        <p v-if="formErrors.name" class="text-red-500 text-sm mt-1">{{ formErrors.name }}</p>
       </div>
 
       <div class="form-control mt-4">
@@ -56,6 +71,7 @@ const handleSignUp = async () => {
           class="input input-bordered w-full"
           required
         />
+        <p v-if="formErrors.email" class="text-red-500 text-sm mt-1">{{ formErrors.email }}</p>
       </div>
 
       <div class="form-control mt-4">
@@ -69,6 +85,7 @@ const handleSignUp = async () => {
           class="input input-bordered w-full"
           required
         />
+        <p v-if="formErrors.password" class="text-red-500 text-sm mt-1">{{ formErrors.password }}</p>
       </div>
 
       <button
