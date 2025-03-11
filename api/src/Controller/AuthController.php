@@ -27,7 +27,11 @@ final class AuthController extends AbstractController
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        return new JsonResponse(data: $user);
+        return new JsonResponse([
+            'data' => [
+                'user' => $user,
+            ],
+        ]);
     }
 
     #[Route(path: '/sign-in', name: 'sign-in', methods: ['POST'])]
@@ -97,7 +101,14 @@ final class AuthController extends AbstractController
         $user = $userRepository->create($data['name'], $data['email'], $data['password']);
 
         return new JsonResponse([
-            'message' => 'User created successfully'
+            'data' => [
+                'message' => 'User created successfully',
+                'user' => [
+                    'id' => $user->getId(),
+                    'name' => $user->getName(),
+                    'email' => $user->getEmail(),
+                ]
+            ],
         ], Response::HTTP_CREATED);
     }
 
