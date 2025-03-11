@@ -6,7 +6,27 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/HomeView.vue'),
+      component: () => import('@/views/Home.vue'),
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: () => import('@/views/SignIn.vue'),
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: () => import('@/views/SignUp.vue'),
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/views/Dashboard.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('@/views/NotFound.vue'),
     },
   ],
 })
